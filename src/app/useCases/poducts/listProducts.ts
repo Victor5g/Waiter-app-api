@@ -9,6 +9,6 @@ export const listProducts = async (req: Request, res: Response) => {
 
         res.status(200).json(products);
     } catch (error) {
-        res.status(500);
+        res.sendStatus(500);
     }
 };

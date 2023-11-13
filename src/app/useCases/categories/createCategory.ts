@@ -10,6 +10,6 @@ export const createCategories = async (req: Request, res: Response) => {
 
         res.status(201).json(category);
     } catch (error) {
-        res.status(500);
+        res.sendStatus(500);
     }
 };

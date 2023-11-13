@@ -7,15 +7,19 @@ import { createCategories } from './app/useCases/categories/createCategory';
 import { listProducts } from './app/useCases/poducts/listProducts';
 import { createProduct } from './app/useCases/poducts/createProduct';
 import { listProductsByCategory } from './app/useCases/categories/listProductsByCategory';
+import { listOrder } from './app/useCases/orders/listOrders';
+import { createOrder } from './app/useCases/orders/createOrder';
+import { changeOrderStatus } from './app/useCases/orders/changeOrderStatus';
+import { cancelOrder } from './app/useCases/orders/cancelOrder';
 
 export const router = Router();
 
 const upload = multer({
     storage: multer.diskStorage({
-        destination(re, file, callback){
+        destination(_, __, callback){
             callback(null, path.resolve(__dirname, '..', 'uploads'));
         },
-        filename(re, file, callback){
+        filename(_, file, callback){
             callback(null, `${Date.now()}-${file.originalname}`);
         }
     },)
@@ -33,19 +37,11 @@ router.post('/products', upload.single('image'), createProduct);
 
 router.get('/categories/:categoryId/products', listProductsByCategory);
 
-router.get('/orders', (req, res) => {
-    res.send('OK');
-});
+router.get('/orders', listOrder);
 
-router.post('/orders', (req, res) => {
-    res.send('OK');
-});
+router.post('/orders', createOrder);
 
-router.patch('/orders/:odersId', (req, res) => {
-    res.send('OK');
-});
+router.patch('/orders/:orderId', changeOrderStatus);
 
-router.delete('/orders/:odersId', (req, res) => {
-    res.send('OK');
-});
+router.delete('/orders/:orderId', cancelOrder);
 
